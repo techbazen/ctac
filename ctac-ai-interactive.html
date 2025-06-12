@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTAC AI Whitepaper - Interactive Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #D53DB8;
+            --background: #E9ECF5;
+            --accent: #35A840;
+            --secondary-accent: #113DC2;
+            --tertiary-accent: #3FE4F0;
+            --text-dark: #1a1a1a;
+            --text-light: #666;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Bai Jamjuree', sans-serif;
+            background: var(--background);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .headline {
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(-45deg, var(--primary), var(--tertiary-accent));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            color: white;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: slideInFromLeft 1s ease-out 0.5s forwards;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: slideInFromRight 1s ease-out 1s forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: scaleIn 0.8s ease-out 1.5s forwards;
+        }
+
+        .cta-button:hover {
+            background: var(--secondary-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { top: 60%; left: 80%; animation-delay: 2s; }
+        .particle:nth-child(3) { top: 40%; left: 60%; animation-delay: 4s; }
+
+        /* Navigation */
+        .sticky-nav {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: var(--primary);
+            transform: scale(1.3);
+        }
+
+        /* Sections */
+        .section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(-45deg, var(--primary), var(--secondary-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(-45deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Interactive Chart */
+        .chart-container {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .chart-bar {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+            cursor: pointer;
+        }
+
+        .chart-label {
+            width: 200px;
+            font-weight: 500;
+        }
+
+        .chart-progress {
+            flex: 1;
+            height: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            margin: 0 1rem;
+            overflow: hidden;
+        }
+
+        .chart-fill {
+            height: 100%;
+            background: linear-gradient(-45deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            transition: width 1s ease;
+            width: 0%;
+        }
+
+        .chart-value {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            margin: 2rem 0;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-content {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            width: 45%;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: 55%;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: 55%;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            animation: pulse 2s infinite;
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(-45deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .fab::before {
+            content: '↑';
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInFromRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(213, 61, 184, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(213, 61, 184, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(213, 61, 184, 0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+                margin-right: 0 !important;
+            }
+            
+            .timeline-dot {
+                left: 30px;
+            }
+            
+            .sticky-nav {
+                top: 1rem;
+                right: 1rem;
+            }
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="sticky-nav">
+        <div class="nav-dot active" data-section="0"></div>
+        <div class="nav-dot" data-section="1"></div>
+        <div class="nav-dot" data-section="2"></div>
+        <div class="nav-dot" data-section="3"></div>
+        <div class="nav-dot" data-section="4"></div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero section" data-section="0">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="hero-content">
+            <h1 class="headline">Navigating Strategic AI</h1>
+            <p>A Comprehensive Vision for Executive Leadership</p>
+            <a href="#strategy" class="cta-button">Explore AI Strategy</a>
+        </div>
+    </section>
+
+    <!-- Strategic Necessity -->
+    <section class="section" data-section="1">
+        <div class="container">
+            <h2 class="section-title headline reveal">Strategic Necessity</h2>
+            <div class="cards-grid">
+                <div class="card reveal">
+                    <h3>AI Business Impact</h3>
+                    <p>By 2027, one in four software tools will include generative AI. This isn't just innovation—it's business necessity.</p>
+                </div>
+                <div class="card reveal">
+                    <h3>Competitive Advantage</h3>
+                    <p>When AI is embedded into your processes, you become more agile, reduce costs, and set the pace in your industry.</p>
+                </div>
+                <div class="card reveal">
+                    <h3>Revenue Transformation</h3>
+                    <p>AI helps streamline operations, spark innovation, and improve customer service at scale.</p>
+                </div>
+            </div>
+            
+            <div class="chart-container reveal">
+                <h3>AI Impact Analysis</h3>
+                <div class="chart-bar" data-value="85">
+                    <div class="chart-label">Operational Efficiency</div>
+                    <div class="chart-progress">
+                        <div class="chart-fill"></div>
+                    </div>
+                    <div class="chart-value">85%</div>
+                </div>
+                <div class="chart-bar" data-value="70">
+                    <div class="chart-label">Cost Reduction</div>
+                    <div class="chart-progress">
+                        <div class="chart-fill"></div>
+                    </div>
+                    <div class="chart-value">70%</div>
+                </div>
+                <div class="chart-bar" data-value="90">
+                    <div class="chart-label">Customer Satisfaction</div>
+                    <div class="chart-progress">
+                        <div class="chart-fill"></div>
+                    </div>
+                    <div class="chart-value">90%</div>
+                </div>
+                <div class="chart-bar" data-value="65">
+                    <div class="chart-label">Revenue Growth</div>
+                    <div class="chart-progress">
+                        <div class="chart-fill"></div>
+                    </div>
+                    <div class="chart-value">65%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI & Implementation -->
+    <section class="section" data-section="2">
+        <div class="container">
+            <h2 class="section-title headline reveal">ROI & Implementation</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Quick Wins</h3>
+                        <p>RPA, AI-powered chatbots, and automated document recognition deliver immediate value with minimal disruption.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Strategic Projects</h3>
+                        <p>Predictive analytics and comprehensive CX platforms require more investment but unlock significant long-term value.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Balanced Approach</h3>
+                        <p>Combine short-term wins with long-term investments to create sustainable impact across your business.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Copilot & Joule -->
+    <section class="section" data-section="3">
+        <div class="container">
+            <h2 class="section-title headline reveal">Copilot & Joule Integration</h2>
+            <div class="cards-grid">
+                <div class="card reveal">
+                    <h3>Microsoft Copilot</h3>
+                    <p>Enhances everyday tools like Outlook, Teams, and Excel with natural language capabilities, directly in your workflow.</p>
+                </div>
+                <div class="card reveal">
+                    <h3>SAP Joule</h3>
+                    <p>Connects to SAP systems delivering real-time insights based on live transactional data from S/4HANA, BW, and SuccessFactors.</p>
+                </div>
+                <div class="card reveal">
+                    <h3>Connected AI</h3>
+                    <p>Together, they create an intelligent assistant that understands your business and helps you act faster with contextual insights.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Vision -->
+    <section class="section" data-section="4">
+        <div class="container">
+            <h2 class="section-title headline reveal">The Future of AI</h2>
+            <div class="cards-grid">
+                <div class="card reveal">
+                    <h3>AI as Interface</h3>
+                    <p>Prompting will become the new interface for business software. Context becomes more important than features.</p>
+                </div>
+                <div class="card reveal">
+                    <h3>Agentic AI</h3>
+                    <p>The next wave shifts from responding to prompts to achieving outcomes autonomously with the ability to perceive, plan, act, and learn.</p>
+                </div>
+                <div class="card reveal">
+                    <h3>Connected Intelligence</h3>
+                    <p>Enterprise-wide orchestration with AI that links every step of the process: from signal to strategy to execution.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#" class="cta-button reveal">Start Your AI Journey with CTAC</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Action Button -->
+    <div class="fab" onclick="scrollToTop()"></div>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav-dot').forEach(dot => {
+            dot.addEventListener('click', () => {
+                const sectionIndex = dot.dataset.section;
+                const section = document.querySelector(`[data-section="${sectionIndex}"]`);
+                section.scrollIntoView({ behavior: 'smooth' });
+                
+                // Update active nav dot
+                document.querySelectorAll('.nav-dot').forEach(d => d.classList.remove('active'));
+                dot.classList.add('active');
+            });
+        });
+
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Animate chart bars
+                    if (entry.target.classList.contains('chart-container')) {
+                        setTimeout(() => {
+                            entry.target.querySelectorAll('.chart-bar').forEach((bar, index) => {
+                                setTimeout(() => {
+                                    const value = bar.dataset.value;
+                                    const fill = bar.querySelector('.chart-fill');
+                                    fill.style.width = value + '%';
+                                }, index * 200);
+                            });
+                        }, 300);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all reveal elements
+        document.querySelectorAll('.reveal, .timeline-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Update navigation based on scroll position
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('[data-section]');
+            const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => dot.classList.remove('active'));
+                    document.querySelector(`[data-section="${index}"]`).classList.add('active');
+                }
+            });
+        });
+
+        // Add hover effects for cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.background = 'linear-gradient(-45deg, rgba(213, 61, 184, 0.05), rgba(53, 168, 64, 0.05))';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.background = 'white';
+            });
+        });
+
+        // Interactive chart bars
+        document.querySelectorAll('.chart-bar').forEach(bar => {
+            bar.addEventListener('click', () => {
+                const fill = bar.querySelector('.chart-fill');
+                fill.style.background = 'linear-gradient(-45deg, var(--secondary-accent), var(--tertiary-accent))';
+                setTimeout(() => {
+                    fill.style.background = 'linear-gradient(-45deg, var(--primary), var(--accent))';
+                }, 500);
+            });
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>

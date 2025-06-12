@@ -388,7 +388,7 @@ p {
 
 .section-subtitle {
     font-size: 1.3rem;
-    color: #666;
+    color: #f1f1f1;
     font-weight: 300;
 }
 
@@ -695,6 +695,24 @@ p {
     border-radius: 20px;
     max-width: 800px;
     margin: 0 auto;
+}
+.copilot-box {
+    background: linear-gradient(135deg, #c1e4ff, #ecc4ff);
+    padding: 3rem;
+    border-radius: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.joule-box {
+    background: linear-gradient(90deg, #7328e9, #9808cd);
+    padding: 3rem;
+    color: white;
+    border-radius: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.joule-box p {
+  color: white;
 }
 
 .experience-box h4 {
@@ -1703,6 +1721,523 @@ p {
     color: #0066CC;
 }
 
+/* Quotes Section */
+.quotes-section {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    padding: 4rem 0;
+}
+
+.quotes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.quote-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #0066CC;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.quote-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.quote-card::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-size: 4rem;
+    color: #0066CC;
+    opacity: 0.3;
+    font-family: Georgia, serif;
+}
+
+.quote-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #2d3748;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.quote-author {
+    font-weight: 600;
+    color: #0066CC;
+    margin-bottom: 0.5rem;
+}
+
+.quote-source {
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.quote-source a {
+    color: #0066CC;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.quote-source a:hover {
+    color: #00AAFF;
+    text-decoration: underline;
+}
+
+/* Single Quote Styling */
+.single-quote {
+    margin: 3rem 0;
+    padding: 2rem 0;
+}
+
+.quote-card.centered {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.quote-card.large {
+    padding: 3rem;
+    font-size: 1.2rem;
+}
+
+.quote-card.large .quote-text {
+    font-size: 1.3rem;
+    line-height: 1.7;
+}
+
+/* Quote with Avatar Styling */
+.quote-card.with-avatar {
+    position: relative;
+    padding-top: 4rem;
+}
+
+.quote-avatar {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.avatar-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 4px solid white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.avatar-image:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 102, 204, 0.3);
+}
+
+.quote-card.with-avatar .quote-text {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.quote-card.with-avatar .quote-author {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.quote-card.with-avatar .quote-source {
+    text-align: center;
+}
+
+/* Responsive adjustments for avatar quotes */
+@media (max-width: 768px) {
+    .quote-card.with-avatar {
+        padding-top: 3.5rem;
+    }
+    
+    .quote-avatar {
+        top: -25px;
+    }
+    
+    .avatar-image {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .quote-card.with-avatar {
+        padding-top: 3rem;
+    }
+    
+    .quote-avatar {
+        top: -20px;
+    }
+    
+    .avatar-image {
+        width: 50px;
+        height: 50px;
+        border: 3px solid white;
+    }
+}
+
+/* Solution Logos */
+.solution-logos {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin: 2rem 0;
+    padding: 2rem 0;
+}
+
+.solution-logo {
+    height: 60px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: grayscale(0.2);
+}
+
+.solution-logo:hover {
+    transform: scale(1.1);
+    filter: grayscale(0);
+}
+
+/* Business AI Canvas Section */
+.canvas-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 5rem 0;
+    position: relative;
+}
+
+.canvas-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.canvas-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+.canvas-section .section-title,
+.canvas-section .section-subtitle {
+    color: white;
+    text-align: center;
+}
+
+.canvas-intro {
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin: 2rem 0 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.canvas-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.canvas-feature {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease;
+}
+
+.canvas-feature:hover {
+    transform: translateY(-5px);
+}
+
+.canvas-feature .feature-icon {
+    font-size: 3rem;
+    color: #FFD700;
+    margin-bottom: 1rem;
+}
+
+.canvas-feature h4 {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.canvas-feature p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.canvas-cta {
+    text-align: center;
+    margin-top: 4rem;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+}
+
+.canvas-cta h3 {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+.canvas-cta p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.canvas-cta .btn {
+    background: #FFD700;
+    color: #333;
+    border: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.canvas-cta .btn:hover {
+    background: #FFC107;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+}
+
+/* Quote CEO Section */
+.quote-ceo-section {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    color: white;
+    padding: 4rem 0;
+}
+
+.quote-ceo-section .quote-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 4px solid #FFD700;
+    color: white;
+    backdrop-filter: blur(10px);
+}
+
+.quote-ceo-section .quote-text {
+    color: white;
+}
+
+.quote-ceo-section .quote-author {
+    color: #FFD700;
+}
+
+.quote-ceo-section .quote-source {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Avatar Pop-up */
+.avatar-popup {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.avatar-button {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #0066CC, #00AAFF);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+    animation: pulse 2s infinite;
+}
+
+.avatar-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 102, 204, 0.4);
+}
+
+.avatar-button i {
+    color: white;
+    font-size: 1.5rem;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+    }
+    50% {
+        box-shadow: 0 4px 12px rgba(0, 102, 204, 0.6), 0 0 0 10px rgba(0, 102, 204, 0.1);
+    }
+    100% {
+        box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+    }
+}
+
+.avatar-chat {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    width: 350px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    transform-origin: bottom right;
+}
+
+.avatar-chat.hidden {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+    pointer-events: none;
+}
+
+.chat-header {
+    background: linear-gradient(135deg, #0066CC, #00AAFF);
+    color: white;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.chat-avatar {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.chat-title h4 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.chat-title p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.chat-close {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-left: auto;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.chat-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.chat-body {
+    padding: 1rem;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.chat-message {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    border-radius: 8px;
+    max-width: 90%;
+}
+
+.bot-message {
+    background: #f1f5f9;
+    color: #334155;
+    margin-right: auto;
+}
+
+.user-message {
+    background: #0066CC;
+    color: white;
+    margin-left: auto;
+}
+
+.chat-input-area {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.chat-input:focus {
+    border-color: #0066CC;
+}
+
+.chat-input:disabled {
+    background: #f8fafc;
+    color: #94a3b8;
+}
+
+.chat-send {
+    background: #0066CC;
+    color: white;
+    border: none;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chat-send:hover:not(:disabled) {
+    background: #0052a3;
+}
+
+.chat-send:disabled {
+    background: #cbd5e1;
+    cursor: not-allowed;
+}
+
+.chat-disclaimer {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: #fef3c7;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.chat-disclaimer small {
+    color: #92400e;
+    font-size: 0.8rem;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .hamburger {
@@ -1836,4 +2371,70 @@ p {
         flex-direction: column;
         text-align: center;
     }
+}
+
+@media (max-width: 480px) {
+    .avatar-popup {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .avatar-button {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .avatar-button i {
+        font-size: 1.2rem;
+    }
+    
+    .avatar-chat {
+        width: calc(100vw - 30px);
+        right: -15px;
+    }
+    
+    .quote-card {
+        padding: 1.5rem;
+    }
+    
+    .canvas-cta {
+        padding: 2rem;
+    }
+    
+    .canvas-cta h3 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.quote-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-4 {
+    margin-top: 2rem;
+}
+
+.mb-4 {
+    margin-bottom: 2rem;
 }

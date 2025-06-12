@@ -435,6 +435,81 @@ class ScrollProgress {
     }
 }
 
+// Avatar Pop-up Functionality
+function toggleAvatarChat() {
+    const chatElement = document.getElementById('avatar-chat');
+    const isHidden = chatElement.classList.contains('hidden');
+    
+    if (isHidden) {
+        chatElement.classList.remove('hidden');
+        // Add a small delay to trigger the animation
+        setTimeout(() => {
+            chatElement.style.opacity = '1';
+            chatElement.style.transform = 'scale(1) translateY(0)';
+        }, 10);
+    } else {
+        chatElement.style.opacity = '0';
+        chatElement.style.transform = 'scale(0.8) translateY(20px)';
+        // Wait for animation to complete before hiding
+        setTimeout(() => {
+            chatElement.classList.add('hidden');
+        }, 300);
+    }
+}
+
+// Close avatar chat when clicking outside
+document.addEventListener('click', (e) => {
+    const avatarPopup = document.getElementById('avatar-popup');
+    const chatElement = document.getElementById('avatar-chat');
+    
+    if (!avatarPopup.contains(e.target) && !chatElement.classList.contains('hidden')) {
+        toggleAvatarChat();
+    }
+});
+
+// Prevent closing when clicking inside the chat
+document.getElementById('avatar-chat').addEventListener('click', (e) => {
+    e.stopPropagation();
+});
+
+// Add escape key listener to close avatar chat
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const chatElement = document.getElementById('avatar-chat');
+        if (!chatElement.classList.contains('hidden')) {
+            toggleAvatarChat();
+        }
+    }
+});
+
+// Initialize avatar chat as hidden
+document.addEventListener('DOMContentLoaded', () => {
+    const chatElement = document.getElementById('avatar-chat');
+    if (chatElement) {
+        chatElement.classList.add('hidden');
+    }
+});
+
+// Enhanced scroll animations for quotes
+function animateOnScroll() {
+    const elements = document.querySelectorAll('.quote-card, .canvas-feature, .single-quote');
+    
+    elements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < window.innerHeight - elementVisible) {
+            element.classList.add('animate-in');
+        }
+    });
+}
+
+// Run animation check on scroll
+window.addEventListener('scroll', animateOnScroll);
+
+// Run animation check on load
+document.addEventListener('DOMContentLoaded', animateOnScroll);
+
 // Initialize all components when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize components
