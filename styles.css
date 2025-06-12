@@ -388,8 +388,10 @@ p {
 
 .section-subtitle {
     font-size: 1.3rem;
-    color: #f1f1f1;
     font-weight: 300;
+}
+.section-subtitle.dark {
+    color: #ccc;
 }
 
 /* Strategic Necessity Section */
@@ -449,6 +451,7 @@ p {
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
+    overflow: hidden;
 }
 
 .content-text h3 {
