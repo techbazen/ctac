@@ -1004,6 +1004,7 @@ p {
     gap: 0.5rem;
     font-weight: 600;
     transition: transform 0.3s ease;
+    z-index: 99;
 }
 
 .mcp-system:hover {
